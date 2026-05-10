@@ -18,9 +18,9 @@ export interface Agent {
   readingTime: number;    // estimated minutes to read full agent
   wordCount: number;
 
-  // Content
-  content: string;        // full markdown body
-  contentHtml: string;    // rendered HTML for detail view
+  // Content (optional, only included when specifically requested)
+  content?: string;        // full markdown body
+  contentHtml?: string;    // rendered HTML for detail view
   excerpt: string;        // first 160 chars of body for meta description
 }
 

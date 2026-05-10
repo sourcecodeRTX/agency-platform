@@ -4,9 +4,13 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "npm run build:agents && next build",
+    "build:agents": "tsx scripts/build-agent-data.js",
+    "validate:agents": "tsx scripts/validate-agents.js",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "type-check": "tsc --noEmit",
+    "analyze": "ANALYZE=true next build"
   },
   "dependencies": {
     "@vercel/og": "0.6.2",
@@ -29,6 +33,7 @@
     "eslint-config-next": "14.2.5",
     "postcss": "8.5.14",
     "tailwindcss": "3.4.19",
+    "tsx": "^4.7.0",
     "typescript": "5.9.3"
   }
 }

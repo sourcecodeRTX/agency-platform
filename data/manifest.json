@@ -1,0 +1,11 @@
+{
+  "version": "1.0",
+  "timestamp": "2026-05-10T16:59:27.815Z",
+  "totalAgents": 169,
+  "categories": 14,
+  "files": {
+    "agents": "C:\\Users\\mrrat\\Pictures\\agency backup\\agency-platform\\data\\agents.json",
+    "searchIndex": "C:\\Users\\mrrat\\Pictures\\agency backup\\agency-platform\\data\\search-index.json",
+    "categories": "C:\\Users\\mrrat\\Pictures\\agency backup\\agency-platform\\data\\categories.json"
+  }
+}

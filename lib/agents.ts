@@ -1,4 +1,4 @@
-// Core agent data parsing and indexing
+// Core agent data parsing and indexing with caching and ISR optimization
 
 import fs from 'fs';
 import path from 'path';
@@ -7,7 +7,16 @@ import { marked } from 'marked';
 import { Agent } from './types';
 import { normalizeColor, hexToRgb } from './colors';
 
-const CONTENT_DIR = path.join(process.cwd(), '..'); // Parent directory contains agent folders
+const CONTENT_DIR = path.join(process.cwd(), 'content');
+const CACHE_DIR = path.join(process.cwd(), '.cache');
+const CACHE_FILE = path.join(CACHE_DIR, 'agents-cache.json');
+
+// Ensure cache directory exists
+function ensureCacheDir() {
+  if (!fs.existsSync(CACHE_DIR)) {
+    fs.mkdirSync(CACHE_DIR, { recursive: true });
+  }
+}
 
 /**
  * Calculate reading time in minutes
@@ -110,28 +119,46 @@ function getMarkdownFiles(dir: string): string[] {
 }
 
 /**
- * Get all agents from all category folders
+ * Get all agents from all category folders with caching
  */
 export async function getAllAgents(): Promise<Agent[]> {
+  ensureCacheDir();
+  
+  // Check if cache exists and is fresh (within 1 hour)
+  if (fs.existsSync(CACHE_FILE)) {
+    const cacheStats = fs.statSync(CACHE_FILE);
+    const cacheAge = Date.now() - cacheStats.mtimeMs;
+    const oneHour = 60 * 60 * 1000;
+    
+    if (cacheAge < oneHour && process.env.NODE_ENV === 'production') {
+      try {
+        const cached = JSON.parse(fs.readFileSync(CACHE_FILE, 'utf-8'));
+        return cached;
+      } catch (error) {
+        console.warn('Failed to read cache, regenerating...');
+      }
+    }
+  }
+  
   const agents: Agent[] = [];
   
   // Category folders to scan
   const categories = [
-    'engineering',
+    'academic',
     'design',
+    'engineering',
+    'finance',
+    'game-development',
     'marketing',
     'paid-media',
     'product',
     'project-management',
     'sales',
-    'finance',
+    'spatial-computing',
+    'specialized',
+    'strategy',
     'support',
     'testing',
-    'specialized',
-    'academic',
-    'game-development',
-    'spatial-computing',
-    'strategy',
   ];
   
   for (const category of categories) {
@@ -152,7 +179,16 @@ export async function getAllAgents(): Promise<Agent[]> {
   }
   
   // Sort by name
-  return agents.sort((a, b) => a.name.localeCompare(b.name));
+  const sorted = agents.sort((a, b) => a.name.localeCompare(b.name));
+  
+  // Write to cache
+  try {
+    fs.writeFileSync(CACHE_FILE, JSON.stringify(sorted), 'utf-8');
+  } catch (error) {
+    console.warn('Failed to write cache:', error);
+  }
+  
+  return sorted;
 }
 
 /**
@@ -184,3 +220,53 @@ export async function getCategoryCounts(): Promise<Record<string, number>> {
   
   return counts;
 }
+
+/**
+ * Get paginated agents
+ */
+export async function getPaginatedAgents(
+  page: number = 1,
+  pageSize: number = 12,
+  category?: string
+): Promise<{ agents: Agent[]; total: number; pages: number; currentPage: number }> {
+  let agents = await getAllAgents();
+  
+  if (category) {
+    agents = agents.filter(agent => agent.category === category);
+  }
+  
+  const total = agents.length;
+  const pages = Math.ceil(total / pageSize);
+  const startIdx = (page - 1) * pageSize;
+  const endIdx = startIdx + pageSize;
+  const paginatedAgents = agents.slice(startIdx, endIdx);
+  
+  return {
+    agents: paginatedAgents,
+    total,
+    pages,
+    currentPage: page,
+  };
+}
+
+/**
+ * Get lightweight agent index (no HTML content)
+ */
+export async function getAgentIndex(): Promise<Array<Omit<Agent, 'contentHtml' | 'content'>>> {
+  const agents = await getAllAgents();
+  return agents.map(({ content, contentHtml, ...agent }) => agent);
+}
+
+/**
+ * Prefetch agents for a category (for background loading)
+ */
+export async function prefetchCategory(category: string): Promise<void> {
+  const categoryPath = path.join(CONTENT_DIR, category);
+  if (fs.existsSync(categoryPath)) {
+    const files = getMarkdownFiles(categoryPath);
+    for (const file of files) {
+      await parseAgentFile(file, category);
+    }
+  }
+}
+

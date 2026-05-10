@@ -1,0 +1,72 @@
+{
+  "testing": {
+    "name": "testing",
+    "count": 8,
+    "emoji": ""
+  },
+  "sales": {
+    "name": "sales",
+    "count": 8,
+    "emoji": ""
+  },
+  "specialized": {
+    "name": "specialized",
+    "count": 41,
+    "emoji": ""
+  },
+  "paid-media": {
+    "name": "paid-media",
+    "count": 7,
+    "emoji": ""
+  },
+  "marketing": {
+    "name": "marketing",
+    "count": 30,
+    "emoji": ""
+  },
+  "engineering": {
+    "name": "engineering",
+    "count": 29,
+    "emoji": ""
+  },
+  "support": {
+    "name": "support",
+    "count": 6,
+    "emoji": ""
+  },
+  "academic": {
+    "name": "academic",
+    "count": 5,
+    "emoji": ""
+  },
+  "product": {
+    "name": "product",
+    "count": 5,
+    "emoji": ""
+  },
+  "finance": {
+    "name": "finance",
+    "count": 5,
+    "emoji": ""
+  },
+  "design": {
+    "name": "design",
+    "count": 8,
+    "emoji": ""
+  },
+  "project-management": {
+    "name": "project-management",
+    "count": 6,
+    "emoji": ""
+  },
+  "game-development": {
+    "name": "game-development",
+    "count": 5,
+    "emoji": ""
+  },
+  "spatial-computing": {
+    "name": "spatial-computing",
+    "count": 6,
+    "emoji": ""
+  }
+}

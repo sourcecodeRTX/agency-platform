@@ -1,0 +1,14 @@
+User-agent: *
+Allow: /
+Allow: /api/agents
+Disallow: /api/agents/search  # Prevent bot spam of search
+
+# Crawler delays
+User-agent: AhrefsBot
+Crawl-delay: 10
+
+User-agent: SemrushBot
+Crawl-delay: 10
+
+# Sitemaps
+Sitemap: https://theagency.dev/sitemap.xml

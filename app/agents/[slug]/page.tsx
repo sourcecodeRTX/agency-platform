@@ -1,11 +1,12 @@
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import { ArrowLeft, Clock, FileText } from 'lucide-react';
-import { getAllAgents, getAgentBySlug } from '@/lib/agents';
+import { getAllAgentsMetadata, getAgentBySlug } from '@/lib/agents-optimized';
 import { getCategoryMetadata } from '@/lib/categories';
 import { AgentBadge } from '@/components/agents/AgentBadge';
 import { CopyButton } from '@/components/agents/CopyButton';
 import { AgentCard } from '@/components/agents/AgentCard';
+import { marked } from 'marked';
 
 interface AgentPageProps {
   params: {
@@ -15,7 +16,7 @@ interface AgentPageProps {
 
 // Generate static params for all agents
 export async function generateStaticParams() {
-  const agents = await getAllAgents();
+  const agents = await getAllAgentsMetadata();
   return agents.map((agent) => ({
     slug: agent.slug,
   }));
@@ -56,8 +57,11 @@ export default async function AgentPage({ params }: AgentPageProps) {
 
   const categoryMeta = getCategoryMetadata(agent.category);
   
+  // Render HTML content
+  const contentHtml = agent.content ? await marked(agent.content) : '';
+  
   // Get related agents (same category, limit 3)
-  const allAgents = await getAllAgents();
+  const allAgents = await getAllAgentsMetadata();
   const relatedAgents = allAgents
     .filter((a) => a.category === agent.category && a.slug !== agent.slug)
     .slice(0, 3);
@@ -123,11 +127,13 @@ export default async function AgentPage({ params }: AgentPageProps) {
 
               {/* Actions */}
               <div className="flex flex-wrap gap-3 pt-4">
-                <CopyButton
-                  content={agent.content}
-                  label="Copy Full Prompt"
-                  className="text-base px-6 py-3"
-                />
+                {agent.content && (
+                  <CopyButton
+                    content={agent.content}
+                    label="Copy Full Prompt"
+                    className="text-base px-6 py-3"
+                  />
+                )}
               </div>
             </div>
           </div>
@@ -139,7 +145,7 @@ export default async function AgentPage({ params }: AgentPageProps) {
           <div className="lg:col-span-2">
             <div
               className="markdown-content prose prose-invert max-w-none"
-              dangerouslySetInnerHTML={{ __html: agent.contentHtml }}
+              dangerouslySetInnerHTML={{ __html: contentHtml }}
             />
           </div>
 

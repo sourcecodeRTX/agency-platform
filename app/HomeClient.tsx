@@ -1,10 +1,12 @@
 'use client';
 
 import { useState, useEffect, useMemo } from 'react';
+import { useSearchParams } from 'next/navigation';
 import { Agent, Category } from '@/lib/types';
 import { AgentGrid } from '@/components/agents/AgentGrid';
 import { SearchBar } from '@/components/search/SearchBar';
 import { CategoryFilter } from '@/components/filters/CategoryFilter';
+import { Pagination } from '@/components/ui/Pagination';
 import { createSearchIndex } from '@/lib/search-index';
 import Fuse from 'fuse.js';
 
@@ -13,15 +15,32 @@ interface HomeClientProps {
   categories: Category[];
 }
 
+const AGENTS_PER_PAGE = 12;
+
 export function HomeClient({ agents, categories }: HomeClientProps) {
+  const searchParams = useSearchParams();
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
+  const [currentPage, setCurrentPage] = useState(1);
   const [searchIndex, setSearchIndex] = useState<Fuse<Agent> | null>(null);
 
   // Initialize search index
   useEffect(() => {
     setSearchIndex(createSearchIndex(agents));
   }, [agents]);
+
+  // Load pagination state from URL
+  useEffect(() => {
+    const page = searchParams.get('page');
+    const category = searchParams.get('category');
+    
+    if (page) {
+      setCurrentPage(Math.max(1, parseInt(page, 10)));
+    }
+    if (category) {
+      setSelectedCategory(category);
+    }
+  }, [searchParams]);
 
   // Filter and search agents
   const filteredAgents = useMemo(() => {
@@ -42,6 +61,22 @@ export function HomeClient({ agents, categories }: HomeClientProps) {
     return result;
   }, [agents, selectedCategory, searchQuery, searchIndex]);
 
+  // Paginate results
+  const paginationData = useMemo(() => {
+    const total = filteredAgents.length;
+    const pages = Math.ceil(total / AGENTS_PER_PAGE);
+    const validPage = Math.min(currentPage, pages || 1);
+    const startIdx = (validPage - 1) * AGENTS_PER_PAGE;
+    const endIdx = startIdx + AGENTS_PER_PAGE;
+    
+    return {
+      agents: filteredAgents.slice(startIdx, endIdx),
+      total,
+      pages,
+      currentPage: validPage,
+    };
+  }, [filteredAgents, currentPage]);
+
   return (
     <div className="py-12">
       {/* Hero section */}
@@ -52,7 +87,7 @@ export function HomeClient({ agents, categories }: HomeClientProps) {
             The Agency
           </h1>
           <p className="text-xl md:text-2xl text-text-secondary text-balance">
-            200+ AI Specialists Ready to Deploy
+            {paginationData.total}+ AI Specialists Ready to Deploy
           </p>
           <p className="text-base text-text-muted max-w-2xl mx-auto">
             Browse specialized AI agent personalities for engineering, design, marketing, and more.
@@ -63,7 +98,10 @@ export function HomeClient({ agents, categories }: HomeClientProps) {
           <div className="pt-4">
             <SearchBar
               value={searchQuery}
-              onChange={setSearchQuery}
+              onChange={(query) => {
+                setSearchQuery(query);
+                setCurrentPage(1);
+              }}
               placeholder="Search agents by name, description, or category..."
             />
           </div>
@@ -75,7 +113,10 @@ export function HomeClient({ agents, categories }: HomeClientProps) {
         <CategoryFilter
           categories={categories}
           selectedCategory={selectedCategory}
-          onSelectCategory={setSelectedCategory}
+          onSelectCategory={(category) => {
+            setSelectedCategory(category);
+            setCurrentPage(1);
+          }}
           totalCount={agents.length}
         />
       </section>
@@ -83,7 +124,7 @@ export function HomeClient({ agents, categories }: HomeClientProps) {
       {/* Results count */}
       <section className="container-custom mb-6">
         <p className="text-sm text-text-muted">
-          Showing {filteredAgents.length} of {agents.length} agents
+          Showing {paginationData.agents.length} of {paginationData.total} agents
           {selectedCategory && (
             <span>
               {' '}
@@ -105,8 +146,18 @@ export function HomeClient({ agents, categories }: HomeClientProps) {
 
       {/* Agent grid */}
       <section className="container-custom">
-        <AgentGrid agents={filteredAgents} />
+        <AgentGrid agents={paginationData.agents} />
       </section>
+
+      {/* Pagination */}
+      {paginationData.pages > 1 && (
+        <Pagination
+          currentPage={paginationData.currentPage}
+          totalPages={paginationData.pages}
+          baseUrl="/"
+          category={selectedCategory || undefined}
+        />
+      )}
     </div>
   );
 }
