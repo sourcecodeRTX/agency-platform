@@ -8,14 +8,22 @@ interface CopyButtonProps {
   content: string;
   label?: string;
   className?: string;
+  onClick?: (e: React.MouseEvent) => void;
 }
 
 type CopyState = 'idle' | 'copying' | 'copied' | 'error';
 
-export function CopyButton({ content, label = 'Copy Prompt', className = '' }: CopyButtonProps) {
+export function CopyButton({ content, label = 'Copy Prompt', className = '', onClick }: CopyButtonProps) {
   const [state, setState] = useState<CopyState>('idle');
 
-  const handleCopy = async () => {
+  const handleCopy = async (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    
+    if (onClick) {
+      onClick(e);
+    }
+    
     setState('copying');
     
     try {

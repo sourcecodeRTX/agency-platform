@@ -1,11 +1,12 @@
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
-import { ArrowLeft, Clock, FileText } from 'lucide-react';
+import { ArrowLeft, Clock, FileText, Download } from 'lucide-react';
 import { getAllAgentsMetadata, getAgentBySlug } from '@/lib/agents-optimized';
 import { getCategoryMetadata } from '@/lib/categories';
 import { AgentBadge } from '@/components/agents/AgentBadge';
 import { CopyButton } from '@/components/agents/CopyButton';
 import { AgentCard } from '@/components/agents/AgentCard';
+import { DownloadButton } from '@/components/agents/DownloadButton';
 import { marked } from 'marked';
 
 interface AgentPageProps {
@@ -67,7 +68,7 @@ export default async function AgentPage({ params }: AgentPageProps) {
     .slice(0, 3);
 
   return (
-    <div className="py-12">
+    <div className="pt-20 pb-12">
       <div className="container-custom">
         {/* Back button */}
         <Link
@@ -128,11 +129,17 @@ export default async function AgentPage({ params }: AgentPageProps) {
               {/* Actions */}
               <div className="flex flex-wrap gap-3 pt-4">
                 {agent.content && (
-                  <CopyButton
-                    content={agent.content}
-                    label="Copy Full Prompt"
-                    className="text-base px-6 py-3"
-                  />
+                  <>
+                    <CopyButton
+                      content={agent.content}
+                      label="Copy Full Prompt"
+                      className="text-base px-6 py-3"
+                    />
+                    <DownloadButton
+                      agent={agent}
+                      className="text-base px-6 py-3"
+                    />
+                  </>
                 )}
               </div>
             </div>
@@ -161,18 +168,6 @@ export default async function AgentPage({ params }: AgentPageProps) {
                   <dt className="text-text-muted">Category</dt>
                   <dd className="text-text-primary font-medium">
                     {categoryMeta.emoji} {categoryMeta.label}
-                  </dd>
-                </div>
-                <div>
-                  <dt className="text-text-muted">Color</dt>
-                  <dd className="flex items-center gap-2">
-                    <div
-                      className="w-4 h-4 rounded"
-                      style={{ backgroundColor: agent.colorHex }}
-                    />
-                    <span className="text-text-primary font-mono text-xs">
-                      {agent.colorHex}
-                    </span>
                   </dd>
                 </div>
                 {agent.tools && (

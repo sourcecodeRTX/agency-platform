@@ -15,7 +15,7 @@ interface HomeClientProps {
   categories: Category[];
 }
 
-const AGENTS_PER_PAGE = 12;
+const AGENTS_PER_PAGE = 16;
 
 export function HomeClient({ agents, categories }: HomeClientProps) {
   const searchParams = useSearchParams();
@@ -78,24 +78,24 @@ export function HomeClient({ agents, categories }: HomeClientProps) {
   }, [filteredAgents, currentPage]);
 
   return (
-    <div className="py-12">
+    <div className="pt-20 pb-12">
       {/* Hero section */}
-      <section className="container-custom mb-16">
-        <div className="text-center max-w-4xl mx-auto space-y-6">
-          <h1 className="text-5xl md:text-6xl font-bold text-text-primary">
-            <span className="text-6xl md:text-7xl block mb-2">🎭</span>
+      <section className="container-custom mb-12">
+        <div className="text-center max-w-5xl mx-auto space-y-4">
+          <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold text-text-primary">
+            <span className="text-6xl md:text-7xl lg:text-8xl block mb-2">🎭</span>
             The Agency
           </h1>
-          <p className="text-xl md:text-2xl text-text-secondary text-balance">
-            {paginationData.total}+ AI Specialists Ready to Deploy
+          <p className="text-xl md:text-2xl lg:text-3xl text-text-secondary">
+            AI Specialists Ready to Deploy
           </p>
-          <p className="text-base text-text-muted max-w-2xl mx-auto">
+          <p className="text-base md:text-lg text-text-muted max-w-3xl mx-auto">
             Browse specialized AI agent personalities for engineering, design, marketing, and more.
             Copy any agent and drop it into Claude, Copilot, Cursor, or your favorite AI tool.
           </p>
 
           {/* Search bar */}
-          <div className="pt-4">
+          <div className="pt-2">
             <SearchBar
               value={searchQuery}
               onChange={(query) => {
@@ -109,7 +109,7 @@ export function HomeClient({ agents, categories }: HomeClientProps) {
       </section>
 
       {/* Category filters */}
-      <section className="container-custom mb-12">
+      <section className="container-custom mb-8">
         <CategoryFilter
           categories={categories}
           selectedCategory={selectedCategory}
@@ -122,7 +122,7 @@ export function HomeClient({ agents, categories }: HomeClientProps) {
       </section>
 
       {/* Results count */}
-      <section className="container-custom mb-6">
+      <section className="container-custom mb-4">
         <p className="text-sm text-text-muted">
           Showing {paginationData.agents.length} of {paginationData.total} agents
           {selectedCategory && (

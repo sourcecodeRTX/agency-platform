@@ -7,19 +7,19 @@ import { Navbar } from '@/components/layout/Navbar';
 import { Footer } from '@/components/layout/Footer';
 
 export const metadata: Metadata = {
-  title: 'The Agency — 200+ AI Agent Specialists',
+  title: 'The Agency — AI Agent Specialists',
   description: 'A curated directory of AI agent personalities ready to deploy in Claude, Copilot, Cursor, and other AI tools. Browse, filter, and copy specialized agents for engineering, design, marketing, and more.',
   keywords: ['AI agents', 'Claude', 'Copilot', 'Cursor', 'AI assistants', 'prompts', 'agent directory'],
   authors: [{ name: 'The Agency Community' }],
   openGraph: {
-    title: 'The Agency — 200+ AI Agent Specialists',
+    title: 'The Agency — AI Agent Specialists',
     description: 'Browse and deploy specialized AI agents for any task',
     type: 'website',
     locale: 'en_US',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'The Agency — 200+ AI Agent Specialists',
+    title: 'The Agency — AI Agent Specialists',
     description: 'Browse and deploy specialized AI agents for any task',
   },
   viewport: 'width=device-width, initial-scale=1',

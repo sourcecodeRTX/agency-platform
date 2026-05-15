@@ -8,7 +8,7 @@ export const revalidate = 3600;
 // Generate static parameters for better performance
 export async function generateMetadata() {
   return {
-    title: 'The Agency — 170+ AI Agent Specialists',
+    title: 'The Agency — AI Agent Specialists',
     description: 'A curated directory of AI agent personalities ready to deploy in Claude, Copilot, Cursor, and other AI tools.',
   };
 }

@@ -6,7 +6,7 @@ import { ThemeToggle } from '../ui/ThemeToggle';
 
 export function Navbar() {
   return (
-    <nav className="sticky top-0 z-50 border-b border-border bg-background/80 backdrop-blur-sm">
+    <nav className="fixed top-0 left-0 right-0 z-50 border-b border-border bg-background/95 backdrop-blur-md">
       <div className="container-custom">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}

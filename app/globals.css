@@ -119,9 +119,19 @@ a:hover {
   text-wrap: balance;
 }
 
+/* Hide scrollbar for webkit browsers while maintaining scroll functionality */
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
 .container-custom {
   width: 100%;
-  max-width: 1400px;
+  max-width: 1600px;
   margin-left: auto;
   margin-right: auto;
   padding-left: 1.5rem;
@@ -130,8 +140,15 @@ a:hover {
 
 @media (min-width: 768px) {
   .container-custom {
-    padding-left: 2rem;
-    padding-right: 2rem;
+    padding-left: 2.5rem;
+    padding-right: 2.5rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .container-custom {
+    padding-left: 3rem;
+    padding-right: 3rem;
   }
 }
 

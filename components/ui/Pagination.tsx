@@ -28,20 +28,21 @@ export function Pagination({
   if (totalPages <= 1) return null;
 
   return (
-    <div className="flex items-center justify-center gap-2 mt-12">
+    <div className="flex items-center justify-center gap-1 sm:gap-2 mt-12 flex-wrap px-2 sm:px-0">
       {/* Previous button */}
       {currentPage > 1 && (
         <Link
           href={getPageUrl(currentPage - 1)}
-          className="inline-flex items-center gap-2 px-3 py-2 rounded-lg font-medium text-sm bg-surface-raised hover:bg-border border border-border transition-colors"
+          className="inline-flex items-center gap-1 sm:gap-2 px-2 sm:px-3 py-2 rounded-lg font-medium text-xs sm:text-sm bg-surface-raised hover:bg-border border border-border transition-colors whitespace-nowrap"
         >
-          <ChevronLeft className="w-4 h-4" />
-          Previous
+          <ChevronLeft className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
+          <span className="hidden sm:inline">Previous</span>
+          <span className="sm:hidden">&lt;</span>
         </Link>
       )}
 
       {/* Page numbers */}
-      <div className="flex items-center gap-1">
+      <div className="flex items-center gap-0.5 sm:gap-1">
         {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => {
           if (
             page === 1 ||
@@ -52,7 +53,7 @@ export function Pagination({
               <Link
                 key={page}
                 href={getPageUrl(page)}
-                className={`inline-flex items-center justify-center w-8 h-8 rounded-lg font-medium text-sm transition-colors ${
+                className={`inline-flex items-center justify-center w-7 h-7 sm:w-8 sm:h-8 rounded-lg font-medium text-xs sm:text-sm transition-colors ${
                   page === currentPage
                     ? 'bg-accent text-background'
                     : 'bg-surface-raised hover:bg-border border border-border'
@@ -85,10 +86,11 @@ export function Pagination({
       {currentPage < totalPages && (
         <Link
           href={getPageUrl(currentPage + 1)}
-          className="inline-flex items-center gap-2 px-3 py-2 rounded-lg font-medium text-sm bg-surface-raised hover:bg-border border border-border transition-colors"
+          className="inline-flex items-center gap-1 sm:gap-2 px-2 sm:px-3 py-2 rounded-lg font-medium text-xs sm:text-sm bg-surface-raised hover:bg-border border border-border transition-colors whitespace-nowrap"
         >
-          Next
-          <ChevronRight className="w-4 h-4" />
+          <span className="hidden sm:inline">Next</span>
+          <span className="sm:hidden">&gt;</span>
+          <ChevronRight className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
         </Link>
       )}
     </div>

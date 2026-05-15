@@ -23,7 +23,12 @@ export function SearchBar({
     const handleKeyDown = (e: KeyboardEvent) => {
       if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
         e.preventDefault();
-        inputRef.current?.focus();
+        // Scroll to top smoothly
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+        // Focus input after a brief delay to ensure scroll starts
+        setTimeout(() => {
+          inputRef.current?.focus();
+        }, 100);
       }
     };
 
@@ -39,9 +44,9 @@ export function SearchBar({
   return (
     <div className="relative w-full max-w-2xl mx-auto">
       <div
-        className={`relative flex items-center gap-3 px-4 py-3 rounded-xl border transition-all duration-200 ${
+        className={`flex items-center gap-3 px-4 py-3 rounded-xl border transition-all duration-200 ${
           isFocused
-            ? 'border-accent bg-surface-raised shadow-lg'
+            ? 'border-accent bg-surface-raised'
             : 'border-border bg-surface'
         }`}
       >
