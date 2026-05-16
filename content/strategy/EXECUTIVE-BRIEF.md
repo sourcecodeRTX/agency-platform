@@ -1,3 +1,9 @@
+---
+name: NEXUS Executive Brief
+description: Key findings and strategic implications from the NEXUS orchestration research
+emoji: 📑
+---
+
 # 📑 NEXUS Executive Brief
 
 ## Network of EXperts, Unified in Strategy

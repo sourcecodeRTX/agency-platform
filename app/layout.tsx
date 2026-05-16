@@ -1,4 +1,4 @@
-import type { Metadata } from 'next';
+import type { Metadata, Viewport } from 'next';
 import { GeistSans } from 'geist/font/sans';
 import { GeistMono } from 'geist/font/mono';
 import './globals.css';
@@ -23,7 +23,11 @@ export const metadata: Metadata = {
     title: 'The Agency — AI Agent Specialists',
     description: 'Browse and deploy specialized AI agents for any task',
   },
-  viewport: 'width=device-width, initial-scale=1',
+};
+
+export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1,
   themeColor: [
     { media: '(prefers-color-scheme: light)', color: '#F8F8FC' },
     { media: '(prefers-color-scheme: dark)', color: '#0A0A0F' },

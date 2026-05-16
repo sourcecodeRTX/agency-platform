@@ -1,3 +1,9 @@
+---
+name: NEXUS Quick-Start Guide
+description: Get from zero to orchestrated multi-agent pipeline in 5 minutes
+emoji: ⚡
+---
+
 # ⚡ NEXUS Quick-Start Guide
 
 > **Get from zero to orchestrated multi-agent pipeline in 5 minutes.**

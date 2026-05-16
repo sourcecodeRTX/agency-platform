@@ -1,3 +1,9 @@
+---
+name: NEXUS — Network of EXperts, Unified in Strategy
+description: The Agency's complete operational playbook for multi-agent orchestration
+emoji: 🌐
+---
+
 # 🌐 NEXUS — Network of EXperts, Unified in Strategy
 
 ## The Agency's Complete Operational Playbook for Multi-Agent Orchestration
