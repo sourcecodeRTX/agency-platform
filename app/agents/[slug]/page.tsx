@@ -151,7 +151,7 @@ export default async function AgentPage({ params }: AgentPageProps) {
           {/* Main content */}
           <div className="lg:col-span-2">
             <div
-              className="markdown-content prose prose-invert max-w-none"
+              className="markdown-content max-w-none"
               dangerouslySetInnerHTML={{ __html: contentHtml }}
             />
           </div>

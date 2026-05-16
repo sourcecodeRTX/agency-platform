@@ -3,10 +3,17 @@
 import Link from 'next/link';
 import { Github } from 'lucide-react';
 import { ThemeToggle } from '../ui/ThemeToggle';
+import { useScrollHide } from '@/lib/useScrollHide';
 
 export function Navbar() {
+  const isVisible = useScrollHide();
+
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 w-full border-b border-border bg-background/95 backdrop-blur-md transition-all duration-300 ease-out animate-fade-in-down">
+    <nav
+      className={`fixed top-0 left-0 right-0 z-50 w-full border-b border-border bg-background/95 backdrop-blur-md transition-all duration-300 ease-out ${
+        isVisible ? 'translate-y-0' : '-translate-y-full'
+      }`}
+    >
       <div className="container-custom">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
