@@ -5,6 +5,7 @@ import './globals.css';
 import { ThemeProvider } from '@/components/layout/ThemeProvider';
 import { Navbar } from '@/components/layout/Navbar';
 import { Footer } from '@/components/layout/Footer';
+import { ScrollToTop } from '@/components/ui/ScrollToTop';
 
 export const metadata: Metadata = {
   title: 'The Agency — AI Agent Specialists',
@@ -60,8 +61,9 @@ export default function RootLayout({
         <ThemeProvider>
           <div className="min-h-screen flex flex-col">
             <Navbar />
-            <main className="flex-1">{children}</main>
+            <main className="flex-1 pt-16">{children}</main>
             <Footer />
+            <ScrollToTop />
           </div>
         </ThemeProvider>
       </body>
