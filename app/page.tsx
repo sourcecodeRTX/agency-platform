@@ -1,3 +1,4 @@
+import { Suspense } from 'react';
 import { getAllAgentsMetadata, getCategoryCounts } from '@/lib/agents-optimized';
 import { buildCategories } from '@/lib/categories';
 import { HomeClient } from './HomeClient';
@@ -19,5 +20,9 @@ export default async function HomePage() {
   const categoryCounts = await getCategoryCounts();
   const categories = buildCategories(categoryCounts);
 
-  return <HomeClient agents={agents} categories={categories} />;
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <HomeClient agents={agents} categories={categories} />
+    </Suspense>
+  );
 }
