@@ -14,7 +14,7 @@ export function Footer() {
               The Agency
             </h3>
             <p className="text-sm text-text-secondary leading-relaxed">
-              A curated directory of 200+ AI agent personalities ready to deploy
+              A curated directory of expertly crafted AI agent personalities ready to deploy
               in Claude, Copilot, Cursor, and other AI tools.
             </p>
           </div>
@@ -35,7 +35,7 @@ export function Footer() {
               </li>
               <li>
                 <a
-                  href="https://github.com/yourusername/agency-agents"
+                  href="https://github.com/sourcecodeRTX/agency-platform"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-text-secondary hover:text-accent transition-colors"
@@ -45,7 +45,7 @@ export function Footer() {
               </li>
               <li>
                 <a
-                  href="https://github.com/yourusername/agency-agents/blob/main/CONTRIBUTING.md"
+                  href="https://github.com/sourcecodeRTX/agency-platform/blob/main/CONTRIBUTING.md"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-text-secondary hover:text-accent transition-colors"
@@ -64,7 +64,7 @@ export function Footer() {
             <ul className="space-y-2 text-sm">
               <li>
                 <a
-                  href="https://github.com/yourusername/agency-agents/blob/main/LICENSE"
+                  href="https://github.com/sourcecodeRTX/agency-platform/blob/main/LICENSE"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-text-secondary hover:text-accent transition-colors"
@@ -78,8 +78,8 @@ export function Footer() {
 
         {/* Bottom bar */}
         <div className="mt-8 pt-8 border-t border-border flex flex-col md:flex-row items-center justify-between gap-4">
-          <p className="text-sm text-text-muted flex items-center gap-2">
-            Made with <Heart className="w-4 h-4 text-red-500" /> by the community
+          <p className="text-sm text-text-muted">
+            Made with <Heart className="w-4 h-4 text-red-500 inline" /> by the community
           </p>
           <p className="text-sm text-text-muted">
             © {currentYear} The Agency. All rights reserved.

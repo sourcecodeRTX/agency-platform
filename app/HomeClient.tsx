@@ -90,8 +90,7 @@ export function HomeClient({ agents, categories }: HomeClientProps) {
             AI Specialists Ready to Deploy
           </p>
           <p className="text-base md:text-lg text-text-muted max-w-3xl mx-auto">
-            Browse specialized AI agent personalities for engineering, design, marketing, and more.
-            Copy any agent and drop it into Claude, Copilot, Cursor, or your favorite AI tool.
+            Discover expertly crafted AI agents tailored for engineering, design, marketing, and beyond. Instantly copy any agent and integrate it into Claude, Copilot, Cursor, or any AI tool—no setup required.
           </p>
 
           {/* Search bar */}
