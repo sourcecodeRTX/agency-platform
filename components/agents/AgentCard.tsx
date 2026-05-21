@@ -7,6 +7,8 @@ import { Agent } from '@/lib/types';
 import { AgentBadge } from './AgentBadge';
 import { getCategoryMetadata } from '@/lib/categories';
 import { DownloadModal } from './DownloadModal';
+import { EditorSelectionModal } from './EditorSelectionModal';
+import { UsageGuideModal } from './UsageGuideModal';
 
 interface AgentCardProps {
   agent: Agent;
@@ -17,6 +19,8 @@ export function AgentCard({ agent }: AgentCardProps) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [copyState, setCopyState] = useState<'idle' | 'copied'>('idle');
   const [isExpanded, setIsExpanded] = useState(false);
+  const [isEditorModalOpen, setIsEditorModalOpen] = useState(false);
+  const [selectedEditorId, setSelectedEditorId] = useState<string | null>(null);
 
   const handleCopy = async (e: React.MouseEvent) => {
     e.preventDefault();
@@ -36,7 +40,16 @@ export function AgentCard({ agent }: AgentCardProps) {
   const handleDownloadClick = (e: React.MouseEvent) => {
     e.preventDefault();
     e.stopPropagation();
-    setIsModalOpen(true);
+    setIsEditorModalOpen(true);
+  };
+
+  const handleEditorSelected = (editorId: string) => {
+    setSelectedEditorId(editorId);
+    setIsEditorModalOpen(false);
+  };
+
+  const handleUsageGuideClose = () => {
+    setSelectedEditorId(null);
   };
 
   return (
@@ -107,30 +120,28 @@ export function AgentCard({ agent }: AgentCardProps) {
             <span className="sm:hidden">View</span>
           </Link>
           
-          {agent.content && (
-            <>
-              <button
-                onClick={handleCopy}
-                className="inline-flex items-center justify-center gap-1.5 px-2 sm:px-3 lg:px-4 py-2 lg:py-2.5 rounded-lg font-medium text-xs sm:text-sm bg-surface-raised hover:bg-border border border-border text-text-primary transition-colors flex-1"
-                aria-label="Copy prompt"
-                title="Copy prompt"
-              >
-                <Copy className="w-3 h-3 sm:w-3.5 sm:h-3.5 lg:w-4 lg:h-4" />
-                <span className="truncate">{copyState === 'copied' ? 'Copied!' : 'Copy'}</span>
-              </button>
-              
-              <button
-                onClick={handleDownloadClick}
-                className="inline-flex items-center justify-center gap-1.5 px-2 sm:px-3 lg:px-4 py-2 lg:py-2.5 rounded-lg font-medium text-xs sm:text-sm bg-surface-raised hover:bg-border border border-border text-text-primary transition-colors flex-1"
-                aria-label="Download"
-                title="Download"
-              >
-                <Download className="w-3 h-3 sm:w-3.5 sm:h-3.5 lg:w-4 lg:h-4" />
-                <span className="hidden sm:inline">Download</span>
-                <span className="sm:hidden">DL</span>
-              </button>
-            </>
-          )}
+          <button
+            onClick={handleCopy}
+            disabled={!agent.content}
+            className="inline-flex items-center justify-center gap-1.5 px-2 sm:px-3 lg:px-4 py-2 lg:py-2.5 rounded-lg font-medium text-xs sm:text-sm bg-surface-raised hover:bg-border border border-border text-text-primary transition-colors flex-1 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-surface-raised"
+            aria-label="Copy prompt"
+            title="Copy prompt"
+          >
+            <Copy className="w-3 h-3 sm:w-3.5 sm:h-3.5 lg:w-4 lg:h-4" />
+            <span className="truncate">{copyState === 'copied' ? 'Copied!' : 'Copy'}</span>
+          </button>
+          
+          <button
+            onClick={handleDownloadClick}
+            disabled={!agent.content}
+            className="inline-flex items-center justify-center gap-1.5 px-2 sm:px-3 lg:px-4 py-2 lg:py-2.5 rounded-lg font-medium text-xs sm:text-sm bg-surface-raised hover:bg-border border border-border text-text-primary transition-colors flex-1 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-surface-raised"
+            aria-label="Download"
+            title="Download"
+          >
+            <Download className="w-3 h-3 sm:w-3.5 sm:h-3.5 lg:w-4 lg:h-4" />
+            <span className="hidden sm:inline">Download</span>
+            <span className="sm:hidden">DL</span>
+          </button>
         </div>
 
         {/* Hover border glow effect */}
@@ -148,6 +159,23 @@ export function AgentCard({ agent }: AgentCardProps) {
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
       />
+
+      {/* Editor Selection Modal */}
+      <EditorSelectionModal
+        isOpen={isEditorModalOpen}
+        onClose={() => setIsEditorModalOpen(false)}
+        onEditorSelected={handleEditorSelected}
+      />
+
+      {/* Usage Guide Modal */}
+      {selectedEditorId && (
+        <UsageGuideModal
+          isOpen={selectedEditorId !== null}
+          onClose={handleUsageGuideClose}
+          agent={agent}
+          editorId={selectedEditorId}
+        />
+      )}
     </>
   );
 }
