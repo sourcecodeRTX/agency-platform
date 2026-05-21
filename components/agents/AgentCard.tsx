@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { ArrowRight, Download, Copy } from 'lucide-react';
 import { Agent } from '@/lib/types';
 import { AgentBadge } from './AgentBadge';
@@ -21,15 +21,42 @@ export function AgentCard({ agent }: AgentCardProps) {
   const [isExpanded, setIsExpanded] = useState(false);
   const [isEditorModalOpen, setIsEditorModalOpen] = useState(false);
   const [selectedEditorId, setSelectedEditorId] = useState<string | null>(null);
+  const [agentContent, setAgentContent] = useState<string | undefined>(agent.content);
+  const [isLoadingContent, setIsLoadingContent] = useState(!agent.content);
+
+  // Load full agent content if not already loaded
+  useEffect(() => {
+    if (agent.content) {
+      setAgentContent(agent.content);
+      setIsLoadingContent(false);
+      return;
+    }
+
+    const fetchContent = async () => {
+      try {
+        const response = await fetch(`/api/agents/${agent.slug}`);
+        if (response.ok) {
+          const data = await response.json();
+          setAgentContent(data.content);
+        }
+      } catch (error) {
+        console.error('Failed to fetch agent content:', error);
+      } finally {
+        setIsLoadingContent(false);
+      }
+    };
+
+    fetchContent();
+  }, [agent.slug, agent.content]);
 
   const handleCopy = async (e: React.MouseEvent) => {
     e.preventDefault();
     e.stopPropagation();
     
-    if (!agent.content) return;
+    if (!agentContent) return;
     
     try {
-      await navigator.clipboard.writeText(agent.content);
+      await navigator.clipboard.writeText(agentContent);
       setCopyState('copied');
       setTimeout(() => setCopyState('idle'), 2000);
     } catch (error) {
@@ -121,7 +148,7 @@ export function AgentCard({ agent }: AgentCardProps) {
           
           <button
             onClick={handleCopy}
-            disabled={!agent.content}
+            disabled={isLoadingContent || !agentContent}
             className="inline-flex items-center justify-center gap-1 px-2.5 py-1.5 rounded-md font-medium text-xs bg-surface-raised hover:bg-border border border-border text-text-primary transition-colors flex-1 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-surface-raised"
             aria-label="Copy prompt"
             title="Copy prompt"
@@ -132,7 +159,7 @@ export function AgentCard({ agent }: AgentCardProps) {
           
           <button
             onClick={handleDownloadClick}
-            disabled={!agent.content}
+            disabled={isLoadingContent || !agentContent}
             className="inline-flex items-center justify-center gap-1 px-2.5 py-1.5 rounded-md font-medium text-xs bg-surface-raised hover:bg-border border border-border text-text-primary transition-colors flex-1 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-surface-raised"
             aria-label="Download agent"
             title="Download agent"
@@ -170,7 +197,7 @@ export function AgentCard({ agent }: AgentCardProps) {
         <UsageGuideModal
           isOpen={selectedEditorId !== null}
           onClose={handleUsageGuideClose}
-          agent={agent}
+          agent={{...agent, content: agentContent || agent.content}}
           editorId={selectedEditorId}
         />
       )}
