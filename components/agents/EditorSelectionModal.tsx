@@ -97,7 +97,7 @@ export function EditorSelectionModal({
                     ? 'border-accent bg-accent/5'
                     : 'border-border bg-surface-raised hover:border-border/80 hover:bg-border/20'
                 }`}
-                aria-pressed={selectedEditorId === editor.id}
+                aria-checked={selectedEditorId === editor.id}
                 role="radio"
               >
                 {/* Radio indicator */}

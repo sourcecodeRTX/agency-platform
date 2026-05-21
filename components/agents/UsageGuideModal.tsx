@@ -100,7 +100,7 @@ export function UsageGuideModal({
                 {editorConfig.description}
               </p>
               <p className="text-sm text-text-secondary mt-2 font-medium">
-                Here's how to use your agent prompt in {editorConfig.name}:
+                Here&apos;s how to use your agent prompt in {editorConfig.name}:
               </p>
             </div>
           </div>
