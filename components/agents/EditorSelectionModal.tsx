@@ -1,6 +1,6 @@
 'use client';
 
-import { EDITORS } from '@/lib/editors-config';
+import { EDITORS } from '@/lib/editors-config-v2';
 import { X } from 'lucide-react';
 import { useEffect, useState } from 'react';
 

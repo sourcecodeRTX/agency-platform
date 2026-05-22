@@ -3,7 +3,7 @@
 import { Agent } from '@/lib/types';
 import { X, Download } from 'lucide-react';
 import { useEffect } from 'react';
-import { getEditorConfig } from '@/lib/editors-config';
+import { getEditorConfig } from '@/lib/editors-config-v2';
 
 interface UsageGuideModalProps {
   isOpen: boolean;

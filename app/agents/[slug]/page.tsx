@@ -1,12 +1,11 @@
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
-import { ArrowLeft, Clock, FileText, Download } from 'lucide-react';
+import { ArrowLeft, Clock, FileText } from 'lucide-react';
 import { getAllAgentsMetadata, getAgentBySlug } from '@/lib/agents-optimized';
 import { getCategoryMetadata } from '@/lib/categories';
 import { AgentBadge } from '@/components/agents/AgentBadge';
 import { CopyButton } from '@/components/agents/CopyButton';
 import { AgentCard } from '@/components/agents/AgentCard';
-import { DownloadButton } from '@/components/agents/DownloadButton';
 import { marked } from 'marked';
 
 interface AgentPageProps {
@@ -135,10 +134,7 @@ export default async function AgentPage({ params }: AgentPageProps) {
                       label="Copy Full Prompt"
                       className="text-base px-6 py-3"
                     />
-                    <DownloadButton
-                      agent={agent}
-                      className="text-base px-6 py-3"
-                    />
+                    <AgentCard agent={agent} downloadOnly={true} />
                   </>
                 )}
               </div>

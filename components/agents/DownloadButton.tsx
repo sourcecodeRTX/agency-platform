@@ -6,13 +6,24 @@ import { Agent } from '@/lib/types';
 interface DownloadButtonProps {
   agent: Agent;
   className?: string;
+  onShowInstructions?: () => void;
 }
 
-export function DownloadButton({ agent, className = '' }: DownloadButtonProps) {
+export function DownloadButton({ 
+  agent, 
+  className = '', 
+  onShowInstructions 
+}: DownloadButtonProps) {
   const handleDownload = () => {
     if (!agent.content) return;
     
-    // Create markdown file content
+    // If there's a handler to show instructions, use it
+    if (onShowInstructions) {
+      onShowInstructions();
+      return;
+    }
+    
+    // Otherwise, directly download
     const markdown = `---
 name: ${agent.name}
 description: ${agent.description}
@@ -24,7 +35,6 @@ vibe: ${agent.vibe}
 
 ${agent.content}`;
     
-    // Create blob and download
     const blob = new Blob([markdown], { type: 'text/markdown' });
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
