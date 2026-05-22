@@ -6,26 +6,26 @@
 :root,
 [data-theme='light'] {
   /* Light theme colors */
-  --color-background: 248, 248, 252;
-  --color-surface: 255, 255, 255;
-  --color-surface-raised: 240, 240, 248;
-  --color-border: 224, 224, 238;
-  --color-text-primary: 10, 10, 26;
-  --color-text-secondary: 85, 85, 112;
-  --color-text-muted: 153, 153, 187;
-  --color-accent: 99, 102, 241;
+  --color-background: 248 248 252;
+  --color-surface: 255 255 255;
+  --color-surface-raised: 240 240 248;
+  --color-border: 224 224 238;
+  --color-text-primary: 10 10 26;
+  --color-text-secondary: 85 85 112;
+  --color-text-muted: 153 153 187;
+  --color-accent: 99 102 241;
 }
 
 [data-theme='dark'] {
   /* Dark theme colors */
-  --color-background: 10, 10, 15;
-  --color-surface: 17, 17, 24;
-  --color-surface-raised: 26, 26, 36;
-  --color-border: 42, 42, 56;
-  --color-text-primary: 240, 240, 255;
-  --color-text-secondary: 136, 136, 170;
-  --color-text-muted: 85, 85, 112;
-  --color-accent: 99, 102, 241;
+  --color-background: 10 10 15;
+  --color-surface: 17 17 24;
+  --color-surface-raised: 26 26 36;
+  --color-border: 42 42 56;
+  --color-text-primary: 240 240 255;
+  --color-text-secondary: 136 136 170;
+  --color-text-muted: 85 85 112;
+  --color-accent: 99 102 241;
 }
 
 /* Base styles */
@@ -110,7 +110,7 @@ a:hover {
 
 /* Selection styling */
 ::selection {
-  background-color: rgba(var(--color-accent), 0.2);
+  background-color: rgb(var(--color-accent) / 0.2);
   color: rgb(var(--color-text-primary));
 }
 

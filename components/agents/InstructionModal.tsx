@@ -68,85 +68,85 @@ ${agent.content}`;
 
   return (
     <div
-      className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 backdrop-blur-sm"
+      className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm"
       onClick={onClose}
       role="presentation"
     >
       <div
-        className="relative w-full max-w-2xl bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 border-2 border-blue-500/50 rounded-2xl shadow-2xl max-h-[85vh] overflow-y-auto"
+        className="relative w-full max-w-2xl bg-surface border border-border rounded-xl shadow-xl max-h-[85vh] overflow-y-auto"
         onClick={(e) => e.stopPropagation()}
         role="dialog"
         aria-modal="true"
         aria-labelledby="instruction-modal-title"
       >
         {/* Header */}
-        <div className="flex items-center justify-between p-8 border-b-2 border-blue-500/30 sticky top-0 bg-gradient-to-r from-slate-900 to-slate-800 z-10">
+        <div className="flex items-center justify-between p-6 border-b border-border sticky top-0 bg-surface z-10">
           <div className="flex items-center gap-4">
-            <span className="text-4xl" role="img" aria-label={editorConfig.name}>
+            <span className="text-3xl" role="img" aria-label={editorConfig.name}>
               {editorConfig.icon}
             </span>
             <div>
               <h2
                 id="instruction-modal-title"
-                className="text-2xl font-bold text-white font-mono"
+                className="text-xl font-semibold text-text-primary font-mono"
               >
                 {editorConfig.name}
               </h2>
-              <p className="text-blue-300 text-sm mt-1">
+              <p className="text-text-secondary text-sm">
                 Setup Instructions
               </p>
             </div>
           </div>
           <button
             onClick={onClose}
-            className="p-2 rounded-lg hover:bg-blue-500/20 transition-colors flex-shrink-0"
+            className="p-1 rounded-lg hover:bg-surface-raised transition-colors flex-shrink-0"
             aria-label="Close modal"
           >
-            <X className="w-6 h-6 text-blue-300 hover:text-white" />
+            <X className="w-5 h-5 text-text-secondary hover:text-text-primary" />
           </button>
         </div>
 
         {/* Content */}
-        <div className="p-8 space-y-6">
+        <div className="p-6 space-y-6">
           {/* Editor Info Section */}
-          <div className="p-5 rounded-lg bg-blue-900/40 border-l-4 border-blue-500">
-            <p className="text-gray-200 leading-relaxed font-medium">
+          <div className="p-4 rounded-lg bg-surface-raised border-l-4 border-accent">
+            <p className="text-text-primary leading-relaxed text-sm">
               {editorConfig.description}
             </p>
           </div>
 
           {/* Instructions Steps */}
           <div className="space-y-4">
-            <h3 className="font-bold text-white text-lg uppercase tracking-wider">
+            <h3 className="font-semibold text-text-primary">
               Setup Steps
             </h3>
-            <div className="space-y-2 bg-slate-800/50 p-6 rounded-lg border border-blue-500/20">
+            <div className="space-y-3 bg-surface-raised p-5 rounded-lg border border-border">
               {editorConfig.usageGuide.map((step, index) => (
                 <div
                   key={index}
-                  className="flex gap-3 text-gray-100 leading-relaxed"
+                  className="flex gap-3 text-text-secondary text-sm"
                 >
-                  <span className="text-blue-400 font-bold flex-shrink-0 min-w-fit">
+                  <span className="text-text-primary font-medium flex-shrink-0 min-w-fit">
                     {step.split('.')[0]}.
                   </span>
-                  <span className="text-gray-200">{step.split('. ').slice(1).join('. ')}</span>
+                  <span>{step.split('. ').slice(1).join('. ')}</span>
                 </div>
               ))}
             </div>
           </div>
 
           {/* Agent Info */}
-          <div className="p-5 rounded-lg bg-green-900/30 border-l-4 border-green-500">
+          <div className="p-4 rounded-lg bg-surface-raised border border-border">
             <div className="flex items-start gap-3">
               <span className="text-3xl flex-shrink-0" role="img" aria-label={agent.name}>
                 {agent.emoji}
               </span>
               <div className="flex-1 min-w-0">
-                <p className="text-green-300 text-xs uppercase tracking-wider font-bold">
+                <p className="text-text-secondary text-xs uppercase tracking-wider font-semibold">
                   Agent Prompt
                 </p>
-                <p className="font-bold text-white text-lg mt-1">{agent.name}</p>
-                <p className="text-gray-300 text-sm mt-2 line-clamp-2">
+                <p className="font-semibold text-text-primary mt-1">{agent.name}</p>
+                <p className="text-text-secondary text-sm mt-1 line-clamp-2">
                   {agent.description}
                 </p>
               </div>
@@ -155,18 +155,18 @@ ${agent.content}`;
         </div>
 
         {/* Footer */}
-        <div className="p-6 border-t-2 border-blue-500/30 sticky bottom-0 bg-gradient-to-r from-slate-900 to-slate-800 flex gap-3">
+        <div className="p-6 border-t border-border sticky bottom-0 bg-surface flex gap-3">
           <button
             onClick={onClose}
-            className="flex-1 px-4 py-3 rounded-lg font-semibold text-base text-gray-200 bg-slate-700 hover:bg-slate-600 border border-slate-600 transition-all"
+            className="flex-1 px-4 py-2.5 rounded-lg font-medium text-sm text-text-primary bg-surface-raised hover:bg-border border border-border transition-colors"
           >
             Close
           </button>
           <button
             onClick={handleDownload}
-            className="flex-1 flex items-center justify-center gap-2 px-4 py-3 rounded-lg font-semibold text-base bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-500 hover:to-blue-600 text-white transition-all shadow-lg"
+            className="flex-1 flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg font-medium text-sm bg-accent hover:bg-accent/90 text-white transition-colors"
           >
-            <Download className="w-5 h-5" />
+            <Download className="w-4 h-4" />
             Download File
           </button>
         </div>

@@ -94,7 +94,7 @@ export function EditorSelectionModal({
                 onClick={() => setSelectedEditorId(editor.id)}
                 className={`relative flex items-start gap-4 p-4 rounded-lg border-2 transition-all text-left ${
                   selectedEditorId === editor.id
-                    ? 'border-accent bg-accent/5'
+                    ? 'border-accent bg-accent/10'
                     : 'border-border bg-surface-raised hover:border-border/80 hover:bg-border/20'
                 }`}
                 aria-checked={selectedEditorId === editor.id}
@@ -102,12 +102,16 @@ export function EditorSelectionModal({
               >
                 {/* Radio indicator */}
                 <div
-                  className={`w-5 h-5 rounded-full border-2 flex-shrink-0 mt-0.5 transition-all ${
+                  className={`w-5 h-5 rounded-full border-2 flex-shrink-0 mt-0.5 flex items-center justify-center transition-all ${
                     selectedEditorId === editor.id
                       ? 'border-accent bg-accent'
-                      : 'border-border'
+                      : 'border-border bg-surface'
                   }`}
-                />
+                >
+                  {selectedEditorId === editor.id && (
+                    <div className="w-2 h-2 rounded-full bg-white" />
+                  )}
+                </div>
 
                 {/* Editor info */}
                 <div className="flex-1 min-w-0">

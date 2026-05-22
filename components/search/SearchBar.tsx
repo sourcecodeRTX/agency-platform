@@ -60,7 +60,7 @@ export function SearchBar({
           onFocus={() => setIsFocused(true)}
           onBlur={() => setIsFocused(false)}
           placeholder={placeholder}
-          className="flex-1 bg-transparent outline-none text-text-primary placeholder:text-text-muted"
+          className="flex-1 bg-transparent outline-none focus:outline-none focus:ring-0 focus-visible:outline-none text-text-primary placeholder:text-text-muted"
         />
 
         <AnimatePresence>
