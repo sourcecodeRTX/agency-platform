@@ -6,6 +6,7 @@ import { ThemeProvider } from '@/components/layout/ThemeProvider';
 import { Navbar } from '@/components/layout/Navbar';
 import { Footer } from '@/components/layout/Footer';
 import { ScrollToTop } from '@/components/ui/ScrollToTop';
+import NextTopLoader from 'nextjs-toploader';
 
 export const metadata: Metadata = {
   title: 'The Agency — AI Agent Specialists',
@@ -62,6 +63,7 @@ export default function RootLayout({
           '--font-geist-mono': GeistMono.style.fontFamily,
         } as React.CSSProperties}
       >
+        <NextTopLoader color="#3b82f6" showSpinner={false} />
         <ThemeProvider>
           <div className="min-h-screen flex flex-col">
             <Navbar />
