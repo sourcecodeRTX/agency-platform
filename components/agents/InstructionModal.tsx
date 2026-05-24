@@ -121,17 +121,23 @@ ${agent.content}`;
               Setup Steps
             </h3>
             <div className="space-y-3 bg-surface-raised p-5 rounded-lg border border-border">
-              {editorConfig.usageGuide.map((step, index) => (
-                <div
-                  key={index}
-                  className="flex gap-3 text-text-secondary text-sm"
-                >
-                  <span className="text-text-primary font-medium flex-shrink-0 min-w-fit">
-                    {step.split('.')[0]}.
-                  </span>
-                  <span>{step.split('. ').slice(1).join('. ')}</span>
-                </div>
-              ))}
+              {editorConfig.usageGuide.map((step, index) => {
+                const match = step.match(/^(\d+\.)\s*(.*)$/);
+                const numberPart = match ? match[1] : `${index + 1}.`;
+                const textPart = match ? match[2] : step;
+
+                return (
+                  <div
+                    key={index}
+                    className="flex gap-3 text-text-secondary text-sm"
+                  >
+                    <span className="text-text-primary font-medium flex-shrink-0 min-w-fit">
+                      {numberPart}
+                    </span>
+                    <span>{textPart}</span>
+                  </div>
+                );
+              })}
             </div>
           </div>
 

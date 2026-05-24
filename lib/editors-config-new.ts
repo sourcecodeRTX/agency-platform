@@ -13,11 +13,9 @@ export const EDITORS: EditorConfig[] = [
     icon: '📝',
     description: 'Visual Studio Code with GitHub Copilot',
     usageGuide: [
-      '1. Open VS Code Settings (Ctrl+, or Cmd+,)',
-      '2. Search for "Copilot: Instructions"',
-      '3. Paste the downloaded .md file content',
-      '4. Save and restart VS Code',
-      '5. Use with Copilot Chat (Ctrl+Shift+I)',
+      '1. Create a ".github/agents" folder in your workspace.',
+      '2. Move the downloaded agent file into this folder.',
+      '3. Open Copilot Chat and @ mention your new agent.'
     ],
   },
   {
@@ -26,11 +24,9 @@ export const EDITORS: EditorConfig[] = [
     icon: '✨',
     description: 'Cursor IDE with built-in AI',
     usageGuide: [
-      '1. Open Cursor Settings (Ctrl+, or Cmd+,)',
-      '2. Search for "Custom Instructions"',
-      '3. Paste the downloaded .md file content',
-      '4. Save settings',
-      '5. Start using with Cursor Chat (Ctrl+K)',
+      '1. Create a ".cursor/rules" folder in your workspace.',
+      '2. Move the downloaded agent file into this folder.',
+      '3. Cursor will automatically use it in AI chats.'
     ],
   },
   {
@@ -39,11 +35,9 @@ export const EDITORS: EditorConfig[] = [
     icon: '🚀',
     description: 'Kiro AI Code Editor',
     usageGuide: [
-      '1. Open Kiro Editor and go to Preferences',
-      '2. Find "Agent Instructions" or "Custom Prompts"',
-      '3. Paste the downloaded .md file content',
-      '4. Click Save and Apply',
-      '5. Your agent is ready to use',
+      '1. Create a ".kiro/agents" folder in your workspace.',
+      '2. Move the downloaded agent file into this folder.',
+      '3. Kiro will immediately recognize the new agent.'
     ],
   },
   {
@@ -52,11 +46,9 @@ export const EDITORS: EditorConfig[] = [
     icon: '🌌',
     description: 'Antigravity AI Development Platform',
     usageGuide: [
-      '1. Log into your Antigravity workspace',
-      '2. Go to Settings → Add New Agent',
-      '3. Upload or paste the downloaded .md file',
-      '4. Configure agent settings if needed',
-      '5. Save and activate the agent',
+      '1. Create a ".claude/agents" folder in your workspace.',
+      '2. Move the downloaded agent file into this folder.',
+      '3. The agent is now ready to use.'
     ],
   },
   {
@@ -65,11 +57,9 @@ export const EDITORS: EditorConfig[] = [
     icon: '🛠️',
     description: 'ChatGPT, Gemini, or other AI platforms',
     usageGuide: [
-      '1. Open your AI platform (ChatGPT, Gemini, etc.)',
-      '2. Start a new conversation',
-      '3. Copy the downloaded .md file content',
-      '4. Paste it at the beginning of your message',
-      '5. Send and use your agent',
+      '1. Create a ".claude/agents" folder in your workspace.',
+      '2. Move the downloaded agent file into this folder.',
+      '3. Your AI will reference it automatically.'
     ],
   },
 ];

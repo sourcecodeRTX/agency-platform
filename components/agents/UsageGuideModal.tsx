@@ -111,17 +111,23 @@ export function UsageGuideModal({
               Steps to Get Started
             </h3>
             <div className="space-y-2 pl-2">
-              {editorConfig.usageGuide.map((step, index) => (
-                <div
-                  key={index}
-                  className="flex gap-3 text-sm text-text-secondary leading-relaxed"
-                >
-                  <span className="text-accent font-semibold flex-shrink-0 min-w-fit">
-                    •
-                  </span>
-                  <span>{step}</span>
-                </div>
-              ))}
+              {editorConfig.usageGuide.map((step, index) => {
+                const match = step.match(/^(\d+\.)\s*(.*)$/);
+                const numberPart = match ? match[1] : `${index + 1}.`;
+                const textPart = match ? match[2] : step;
+
+                return (
+                  <div
+                    key={index}
+                    className="flex gap-3 text-sm text-text-secondary leading-relaxed"
+                  >
+                    <span className="text-accent font-semibold flex-shrink-0 min-w-fit">
+                      {numberPart}
+                    </span>
+                    <span>{textPart}</span>
+                  </div>
+                );
+              })}
             </div>
           </div>
 

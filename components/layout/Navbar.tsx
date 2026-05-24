@@ -32,7 +32,7 @@ export function Navbar() {
           {/* Right side actions */}
           <div className="flex items-center gap-3">
                <a
-                  href="https://github.com/sourcecodeRTX"
+                  href="https://github.com/sourcecodeRTX/agency-platform"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="w-10 h-10 rounded-lg bg-surface hover:bg-surface-raised border border-border transition-all duration-200 flex items-center justify-center hover:scale-105"
